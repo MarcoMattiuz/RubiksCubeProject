@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+}
+
+#bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: none;
+}
