@@ -9,9 +9,7 @@ colorR = [180,180,180]
 face = ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE']
 cube = []*6
 spaceBar = False
-current1_stickers = [[0,0], [0, -100], [100,0],
-                    [-100,0], [0, 100], [0, 200]]
-
+cubeface = 0
 while True:
     _, frame = cap.read()
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -22,7 +20,7 @@ while True:
 
     if spaceBar==True:
         for index,x in enumerate(cube):
-          cd.draw_current_cubes(frame,cube[index],index*115)
+          cd.draw_current_cubes(frame,cube[index],cubeface)
       
     cd.draw_detecting_stickers(frame,face)
     for index,(x,y) in enumerate(cd.get_detection_stickers()):
@@ -37,6 +35,7 @@ while True:
     if(key==32):
         spaceBar=True
         cube.append(face[:])
+        cubeface += 1
         print("cube",cube)
 
     cv2.imshow("Frame",frame)
