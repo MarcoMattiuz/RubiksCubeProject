@@ -89,7 +89,7 @@ const tick = () => {
     // arrCubes[j].rotation.x = 0.7 * clock.getElapsedTime()
     // arrCubes[j].rotation.y = 0.7 * clock.getElapsedTime()
     // testPlane.rotation.z = 0.7 * clock.getElapsedTime()
-    radians += 0.005
+    radians += 0.5
     pointLight.position.x = Math.cos(radians)
     pointLight.position.y = Math.sin(radians)
 

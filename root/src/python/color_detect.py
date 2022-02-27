@@ -10,8 +10,8 @@ current_stickers = [[150, 200], [180, 200], [210, 200],
                     [150, 230], [180, 230], [210, 230],
                     [150, 260], [180, 260], [210, 260]]
 
-ds = [[0,0], [0, -100], [100,0],
-                    [-100,0], [0, 100], [0, 200]]
+cubePos = [[0,0], [0, -100], [0,-200],
+     [100,0], [-100,0], [0,100]]
 
 detection_stickers = [[530, 250], [630,250], [730,250],
                 [530, 350], [630,350], [730,350],
@@ -19,21 +19,20 @@ detection_stickers = [[530, 250], [630,250], [730,250],
 
 class Color_Detect:
 
-    def draw_current_cubes(frame,color,distance):
-        i=0
+    def draw_current_cubes(frame,color,count):
         global facePos
-        if facePos<6:
-            Color_Detect.draw_current_stickers(frame,color,ds[facePos])
-            facePos = facePos+1
-        else :
-            facePos = 0
+        
+        if facePos<count:
+            Color_Detect.draw_current_stickers(frame,color,cubePos[facePos])
+            facePos = (facePos+1)%count
+      
        
 
     def draw_current_stickers(frame,color,ds1):
         i=0
         for index in current_stickers:
             bgr_color = Color_Detect.color_to_bgr(color[i])
-            i=i+1
+            i+=1
             cv2.rectangle(frame,(index[0]+ds1[0],index[1]+ds1[1]),(index[0]+25+ds1[0],index[1]+25+ds1[1]),bgr_color,-1)
 
 
@@ -41,7 +40,7 @@ class Color_Detect:
         i=0
         for index in detection_stickers:
             bgr_color = Color_Detect.color_to_bgr(colorArr[i])
-            i=i+1
+            i+=1
             cv2.rectangle(frame,index,(index[0]+50,index[1]+50),bgr_color,-1)
 
     def get_detection_stickers():
