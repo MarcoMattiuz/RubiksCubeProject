@@ -10,8 +10,8 @@ current_stickers = [[150, 200], [180, 200], [210, 200],
                     [150, 230], [180, 230], [210, 230],
                     [150, 260], [180, 260], [210, 260]]
 
-ds = [[0,0], [0, -100], [100,0],
-     [-100,0], [0, 100], [0, 200]]
+cubePos = [[0,0], [0, -100], [0,-200],
+     [100,0], [-100,0], [0,100]]
 
 detection_stickers = [[530, 250], [630,250], [730,250],
                 [530, 350], [630,350], [730,350],
@@ -21,9 +21,10 @@ class Color_Detect:
 
     def draw_current_cubes(frame,color,count):
         global facePos
+        
         if facePos<count:
-            Color_Detect.draw_current_stickers(frame,color,ds[facePos])
-            facePos += 1
+            Color_Detect.draw_current_stickers(frame,color,cubePos[facePos])
+            facePos = (facePos+1)%count
       
        
 

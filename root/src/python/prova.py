@@ -35,7 +35,11 @@ while True:
     if(key==32):
         spaceBar=True
         cube.append(face[:])
-        cubeface += 1
+        if cubeface<6:
+          cubeface += 1
+        else:
+          cubeface = 0  
+          cube.clear()
         print("cube",cube)
 
     cv2.imshow("Frame",frame)
