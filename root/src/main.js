@@ -46,19 +46,26 @@ const basicTestMat = new THREE.MeshStandardMaterial()
 basicTestMat.color = new THREE.Color(0xFFE102)
 const basicTestMat2 = new THREE.MeshStandardMaterial()
 basicTestMat2.color = new THREE.Color(0x0012FF)
+const basicTestMat3 = new THREE.MeshNormalMaterial({wireframe : true})
+
 
 // Objects //
 const testPlane = new THREE.Mesh(gPlane, basicTestMat)
-testPlane.rotation.set(5, 0, 0)
+testPlane.rotation.set(-1.5, 0, 0)
+testPlane.position.set(0,-3,0)
+
 scene.add(testPlane)
-let arrCubes = [];
-for (var i = 0; i < 5; i++) {
-    const cubeTest = new THREE.Mesh(gCube, basicTestMat2)
-    arrCubes.push(cubeTest)
-    arrCubes[i].position.set(i * 1.5, i, 0)
-    scene.add(arrCubes[i])
-}
-console.log(arrCubes)
+const cubeTest = new THREE.Mesh(gCube, basicTestMat2)
+cubeTest.position.set(0,0,0)
+scene.add(cubeTest)
+const cubeTest1 = new THREE.Mesh(gCube, basicTestMat3)
+cubeTest1.position.set(-1.1,0,0)
+scene.add(cubeTest1)
+
+  
+document.addEventListener('click', () => {
+    console.log("cool!");
+})
 
 // const cubeTest = new THREE.Mesh(gCube,basicTestMat2)
 // cubeTest.position.set(0,.9,0)
@@ -66,21 +73,15 @@ console.log(arrCubes)
 
 
 // Lights //
-// scene.add(ambientLight)
+scene.add(ambientLight)
 pointLight.position.set(0, 10, 10)
 scene.add(pointLight)
 
 
 // Update //
-let j = 0;
 let radians = 0;
-let x = arrCubes[1].position.x
-let y = arrCubes[1].position.y
 const clock = new THREE.Clock()
 const tick = () => {
-    if (j >= arrCubes.length) {
-        j = 0;
-    }
 
     
     // // arrCubes[j].position.x = Math.cos(radians);
@@ -95,7 +96,6 @@ const tick = () => {
     controls.update()
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
-    j++;
 }
 
 tick();
