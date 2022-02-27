@@ -88,7 +88,7 @@ class Color_Detect:
             color = "YELLOW"
         elif hue_value < 78:
             color = "GREEN"
-        elif hue_value < 131:
+        elif hue_value < 111:
             color = "BLUE"   
         else:
             color = "RED"      
