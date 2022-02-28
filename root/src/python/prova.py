@@ -1,6 +1,7 @@
              
 import cv2
 from color_detect import Color_Detect as cd
+from color_calibration import Color_Calibration as cc
 import numpy as np
 cap  = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
@@ -10,11 +11,12 @@ face = ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 
 cube = []*6
 spaceBar = False
 cubeface = 0
+cc.color_tracker()
 while True:
     _, frame = cap.read()
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     height,width,_ = frame.shape 
- 
+
     cx = int(width/2)
     cy = int(height/2)
 
@@ -26,7 +28,7 @@ while True:
     for index,(x,y) in enumerate(cd.get_detection_stickers()):
         roi = hsv_frame[y:y+50,x:x+50]
         avg_hsv = cd.median_hsv(roi)
-        color_name = cd.get_color_name(avg_hsv)
+        color_name = cc.get_color_name(avg_hsv)
         face[index] = color_name
 
     frame = cv2.flip(frame, 1)

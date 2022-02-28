@@ -70,30 +70,6 @@ class Color_Detect:
                         v.append(chunk[2])
                     
         return (int(np.median(h)), int(np.median(s)), int(np.median(v))) 
-
-    def get_color_name(hsv):
-        
-        saturation_value = hsv[1]
-        hue_value = hsv[0]
-
-        color = "Undefined"
-
-        if saturation_value<80:
-            color = "WHITE"
-        elif hue_value < 5 :
-            color = "RED"
-        elif hue_value < 22:
-            color = "ORANGE"
-        elif hue_value < 58:
-            color = "YELLOW"
-        elif hue_value < 78:
-            color = "GREEN"
-        elif hue_value < 131:
-            color = "BLUE"   
-        else:
-            color = "RED"      
-
-        return color
     
     def color_to_bgr(color_name):
 
