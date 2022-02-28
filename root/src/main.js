@@ -6,7 +6,7 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import * as dat from 'dat.gui'
 import { ambientLight, pointLight } from './components/lights';
 import { gCube, gPlane } from './components/geometry';
-
+import  MouseMeshInteraction  from './components/mmi';
 // Canvas //
 const canvas = document.querySelector('#bg')
 const sizes = {
@@ -40,25 +40,53 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-
+const mmi = new MouseMeshInteraction(scene, camera);
 // Materials //
 const basicTestMat = new THREE.MeshStandardMaterial()
 basicTestMat.color = new THREE.Color(0xFFE102)
 const basicTestMat2 = new THREE.MeshStandardMaterial()
 basicTestMat2.color = new THREE.Color(0x0012FF)
+const basicTestMat3 = new THREE.MeshNormalMaterial({ wireframe: true })
+
 
 // Objects //
 const testPlane = new THREE.Mesh(gPlane, basicTestMat)
-testPlane.rotation.set(5, 0, 0)
+testPlane.rotation.set(-1.5, 0, 0)
+testPlane.position.set(0, -3, 0)
 scene.add(testPlane)
+
 let arrCubes = [];
-for (var i = 0; i < 5; i++) {
+for(var i=0; i < 9 ;i++){
     const cubeTest = new THREE.Mesh(gCube, basicTestMat2)
-    arrCubes.push(cubeTest)
-    arrCubes[i].position.set(i * 1.5, i, 0)
-    scene.add(arrCubes[i])
+    if(i < 1){
+        cubeTest.position.set(0 , 0, 0)
+    }else if(i == 1){
+    cubeTest.position.set(1.1 , 0, 0)
+    }else if(i == 2){
+    cubeTest.position.set(1.1 , -1.1, 0)
+    }else if(i == 3){
+    cubeTest.position.set(0 , -1.1, 0)
+    }else if(i == 4){
+    cubeTest.position.set(-1.1 , -1.1, 0)
+    }else if(i==5){
+    cubeTest.position.set(-1.1 , 0, 0)
+    }else if(i==6){
+    cubeTest.position.set(-1.1 , 1.1, 0)
+    }else if(i==7){
+    cubeTest.position.set(0 , 1.1, 0)
+    }else if(i==8){
+    cubeTest.position.set(1.1 , 1.1, 0)
+    }
+    arrCubes.push(cubeTest);
+    arrCubes[i].name = 'cubeFront';
+    scene.add(arrCubes[i]);
+    
 }
-console.log(arrCubes)
+
+mmi.addHandler('cubeFront', 'click', () => {
+    console.log("ciaosd");
+    
+})
 
 // const cubeTest = new THREE.Mesh(gCube,basicTestMat2)
 // cubeTest.position.set(0,.9,0)
@@ -66,33 +94,28 @@ console.log(arrCubes)
 
 
 // Lights //
-// scene.add(ambientLight)
+scene.add(ambientLight)
 pointLight.position.set(0, 10, 10)
 scene.add(pointLight)
 
 
 // Update //
-let j = 0;
+let j = 1;
 let radians = 0;
-let x = arrCubes[1].position.x
-let y = arrCubes[1].position.y
 const clock = new THREE.Clock()
 const tick = () => {
-    if (j >= arrCubes.length) {
-        j = 0;
+    if(j > 8){
+        j = 1;
     }
+    radians += 1
 
-    
-    // // arrCubes[j].position.x = Math.cos(radians);
-    // // arrCubes[j].position.z = Math.sin(radians);
-    // arrCubes[j].rotation.x = 0.7 * clock.getElapsedTime()
-    // arrCubes[j].rotation.y = 0.7 * clock.getElapsedTime()
-    // testPlane.rotation.z = 0.7 * clock.getElapsedTime()
-    radians += 0.5
-    pointLight.position.x = Math.cos(radians)
-    pointLight.position.y = Math.sin(radians)
+    arrCubes[j].position.x = arrCubes[j].position.x + Math.cos(radians) 
+    arrCubes[j].position.y = arrCubes[j].position.y + Math.sin(radians) 
 
-    controls.update()
+    // pointLight.position.x = Math.cos(radians)
+    // pointLight.position.y = Math.sin(radians)
+    mmi.update();
+     controls.update()
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
     j++;
