@@ -44,3 +44,4 @@ class Color_Calibration:
             color = "RED"      
 
         return color    
+    

@@ -1,8 +1,10 @@
-             
 import cv2
 from color_detect import Color_Detect as cd
 from color_calibration import Color_Calibration as cc
 import numpy as np
+from sendString import SendString as sendString
+
+#import kociemba 
 cap  = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
@@ -12,6 +14,7 @@ cube = []*6
 spaceBar = False
 cubeface = 0
 cc.color_tracker()
+
 while True:
     _, frame = cap.read()
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -40,6 +43,7 @@ while True:
         if cubeface<6:
           cubeface += 1
         else:
+          sendString.sendString("FDDD'F'L2LDDBBR")
           cubeface = 0  
           cube.clear()
         print("cube",cube)
@@ -68,5 +72,7 @@ while True:
                   | W W W |
                     -----
     """   
+    #li2 = [ y for x in cube for y in x]
+    #','.join(map(str,li2))
 cap.release()
 cv2.destroyAllWindows()
