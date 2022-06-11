@@ -3,7 +3,7 @@ from color_detect import Color_Detect as cd
 from color_calibration import Color_Calibration as cc
 import numpy as np
 from sendString import SendString as sendString
-
+from code_solver import cubeSolver
 #import kociemba 
 cap  = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
@@ -43,9 +43,13 @@ while True:
         if cubeface<6:
           cubeface += 1
         else:
-          sendString.sendString("FDDD'F'L2LDDBBR")
+          #sendString.sendString("FBFRDDB")
+          print("cube",cube)
+          cB = cubeSolver(cube)
+          cB.D_move()
+          print("after D-move", cube)
           cubeface = 0  
-          cube.clear()
+          cube = []*6
         print("cube",cube)
 
     cv2.imshow("Frame",frame)

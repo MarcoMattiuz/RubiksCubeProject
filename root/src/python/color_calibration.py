@@ -1,6 +1,4 @@
 
-from pickle import NONE
-from attr import NOTHING
 import cv2 
 
 

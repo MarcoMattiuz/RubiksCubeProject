@@ -1,7 +1,4 @@
 #include "stepper.h"
-#include <json/value.h>
-#include <fstream>
-
 int button = A0;
 const int ON = 0, OFF = 1;  //per la logica del pulsante
 
@@ -13,9 +10,7 @@ Stepper mot5(27, 29);
 
 void setup()
 {
-  std::ifstream data_file("..data/data.json", std::ifstream::binary);
-  data_file >> dataMoves;
-  print(dataMoves["moves"]);
+
   mot1.setup();
   mot2.setup();
   mot3.setup();
@@ -23,7 +18,7 @@ void setup()
   mot5.setup();
 
   pinMode(button, INPUT_PULLUP);
-
+ 
   Serial.begin(9600);
 
   

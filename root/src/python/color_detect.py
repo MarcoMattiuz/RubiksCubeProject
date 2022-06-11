@@ -29,7 +29,7 @@ class Color_Detect:
        
 
     def draw_current_stickers(frame,color,ds1):
-        i=0
+        i=0 
         for index in current_stickers:
             bgr_color = Color_Detect.color_to_bgr(color[i])
             i+=1
