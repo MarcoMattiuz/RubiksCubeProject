@@ -36,24 +36,26 @@ while True:
 
     frame = cv2.flip(frame, 1)
     
-    key = cv2.waitKey(1)
+    #SPACEBAR key to append a new face to the cube array 
+    key = cv2.waitKey(1) 
     if(key==32):
         spaceBar=True
-        cube.append(face[:])
-        if cubeface<6:
+
+        if cubeface<6:         
+          cube.append(face[:])
           cubeface += 1
         else:
           #sendString.sendString("FBFRDDB")
           print("cube",cube)
           cB = cubeSolver(cube)
-          cB.D_move()
+          cB.F_move()
           print("after D-move", cube)
           cubeface = 0  
           cube = []*6
         print("cube",cube)
 
     cv2.imshow("Frame",frame)
-    
+    #ESC key to exit program
     if key==27: 
         break
 
