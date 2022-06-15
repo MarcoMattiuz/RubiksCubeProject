@@ -48,8 +48,8 @@ while True:
           #sendString.sendString("FBFRDDB")
           print("cube",cube)
           cB = cubeSolver(cube)
-          cB.F_move()
-          print("after D-move", cube)
+          cB.RI_move()
+          print("after RI-move", cube)
           cubeface = 0  
           cube = []*6
         print("cube",cube)
