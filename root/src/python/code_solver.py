@@ -97,7 +97,7 @@ class cubeSolver:
     def F_move(self): 
         # yellow face start
         face = self.cube[2][-3:]
-       
+        greenFaceRow = self.cube[1][:3]
         #yellow face
         self.cube[2][6] = self.cube[4][8]
         self.cube[2][7] = self.cube[4][5]
@@ -116,12 +116,24 @@ class cubeSolver:
         #orange face
         self.cube[3][0] = face[0]
         self.cube[3][3] = face[1]
-        self.cube[3][6] = face[2]  
+        self.cube[3][6] = face[2]
+        
+        #change green face orientation
+       
+        #first row 
+        self.cube[1][:3] = [greenFaceRow[2],self.cube[1][5],self.cube[1][8]]
+        #second row
+        greenFace2Row = self.cube[1][3:6] 
+        self.cube[1][3:6] = [self.cube[1][7],self.cube[1][4],greenFaceRow[1]]
+        #third row 
+        self.cube[1][-3:] = [self.cube[1][8],greenFace2Row[2],greenFaceRow[2]]
+        
+
     #FI works
     def FI_move(self): 
         # yellow face start
         face = self.cube[2][-3:]
-       
+        greenFaceRow = self.cube[1][:3]
         #yellow face
         self.cube[2][6] = self.cube[3][0]
         self.cube[2][7] = self.cube[3][3]
@@ -141,6 +153,16 @@ class cubeSolver:
         self.cube[4][2] = face[2]
         self.cube[4][5] = face[1]
         self.cube[4][8] = face[0]  
+        #change green face orientation
+       
+        #first row 
+        self.cube[1][:3] = [self.cube[1][6],self.cube[1][3],greenFaceRow[0]]
+        #second row
+        greenFace2Row = self.cube[1][3:6] 
+        self.cube[1][3:6] =[greenFaceRow[1],self.cube[1][4],self.cube[1][7]]
+        #third row 
+        self.cube[1][-3:] = [greenFaceRow[0],greenFace2Row[0],self.cube[1][6]]
+        
     #B works
     def B_move(self): 
         # yellow face start
@@ -242,7 +264,7 @@ class cubeSolver:
     def R_move(self): 
         # green face start
         face = [self.cube[1][2],self.cube[1][5],self.cube[1][8]]
-       
+        orangeFaceRow = self.cube[3][:3]
         #green face
         self.cube[1][2] = self.cube[0][2]
         self.cube[1][5] = self.cube[0][5]
@@ -262,10 +284,21 @@ class cubeSolver:
         self.cube[2][2] = face[0]
         self.cube[2][5] = face[1]
         self.cube[2][8] = face[2]  
+
+        #change green face orientation
+        #first row 
+        self.cube[3][:3] = [self.cube[3][6],self.cube[3][3],orangeFaceRow[0]]
+        #second row
+        orangeFace2Row = self.cube[3][3:6] 
+        self.cube[3][3:6] = [self.cube[3][7],self.cube[3][4],orangeFaceRow[1]]
+        #third row 
+        self.cube[3][-3:] = [self.cube[3][8],orangeFace2Row[2],orangeFaceRow[2]]
+
     #R works
     def RI_move(self): 
         # green face start
         face = [self.cube[1][2],self.cube[1][5],self.cube[1][8]]
+        orangeFaceRow = self.cube[3][:3]
         #green face
         self.cube[1][2] = self.cube[2][2]
         self.cube[1][5] = self.cube[2][5]
@@ -284,7 +317,17 @@ class cubeSolver:
         #yellow face
         self.cube[0][2] = face[2]
         self.cube[0][5] = face[1]
-        self.cube[0][8] = face[0]  
+        self.cube[0][8] = face[0] 
+
+        #change green face orientation
+        #first row 
+        self.cube[3][:3] = [orangeFaceRow[2],self.cube[3][5],self.cube[3][8]]
+        #second row
+        orangeFace2Row = self.cube[3][3:6] 
+        self.cube[3][3:6] = [orangeFaceRow[1],self.cube[3][4],self.cube[3][7]]
+        #third row 
+        self.cube[3][-3:] = [orangeFaceRow[0],orangeFace2Row[0],self.cube[3][6]]
+
 
 
 
