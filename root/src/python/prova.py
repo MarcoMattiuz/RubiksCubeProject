@@ -1,3 +1,4 @@
+from ntpath import join
 import cv2
 from color_detect import Color_Detect as cd
 from color_calibration import Color_Calibration as cc
@@ -11,6 +12,12 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
 colorR = [180,180,180]
 face = ['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE']
 cube = []*6
+#cube = [['WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE', 'WHITE'],
+       # ['GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN', 'GREEN'],
+       # ['YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW', 'YELLOW'],
+       # ['ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE', 'ORANGE'],
+       # ['RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED', 'RED'],
+       # ['BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE']]
 spaceBar = False
 cubeface = 0
 cc.color_tracker()
@@ -38,6 +45,7 @@ while True:
     
     #SPACEBAR key to append a new face to the cube array 
     key = cv2.waitKey(1) 
+
     if(key==32):
         spaceBar=True
 
@@ -46,14 +54,25 @@ while True:
           cubeface += 1
         else:
           #sendString.sendString("FBFRDDB")
-          print("cube",cube)
           cB = cubeSolver(cube)
-         
           cB.D_move()
           print("after D-move", cube)
+          cB.F_move()
+          print("after LI-move", cube)
+          cB.R_move()
+          print("after D-move", cube)
           cB.FI_move()
-          print("after FI-move", cube)
-    
+          print("after LI-move", cube)
+          cB.D_move()
+          print("after D-move", cube)
+          ####---
+          cB.LI_move()
+          print("after LI-move", cube)
+          cB.BI_move()
+
+          cB = cubeSolver(cube)
+         
+     
           cubeface = 0  
           cube = []*6
         print("cube",cube)
@@ -72,7 +91,7 @@ while True:
                   | Y Y Y |
                   | Y Y Y |
                   | Y Y Y |
-            -----   -----   -----   
+            -----   -----   ----- 
           | R R R | B B B | O O O | 
           | R R R | B B B | O O O | 
           | R R R | B B B | O O O | 
